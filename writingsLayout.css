@@ -1,0 +1,9 @@
+h1, h3, p {
+    text-align: center;
+}
+
+table {
+    width: 300px;
+    margin: 10px auto;
+    font-size: 120%;
+}
