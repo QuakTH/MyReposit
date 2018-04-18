@@ -7,15 +7,18 @@
             src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
             crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
     <link rel="stylesheet" href="buttonLayout.css">
     <link rel="stylesheet" href="writingsLayout.css">
     <script src="buttonPressed.js"></script>
+    <script src="makeChart.js"></script>
 </head>
 <body>
 <h1>Making Variance</h1>
 <p>by Quak</p>
 <h3>1. Let's make some datas</h3>
-<p>Press the button to make random datas <br>The datas are decimals ranging from 0 to 500(actually not including 500) <br> Make sure you make enough datas to see some good result</p>
+<p>Press the button to make random datas <br>The datas are decimals ranging from 0 to 500(actually not including 500)
+    <br> Make sure you make enough datas to see some good result</p>
 <div id="buttons">
     <button class="make five">make five</button>
     <button class="make ten">make ten</button>
@@ -32,5 +35,6 @@
         <td id="variance"><p></p></td>
     </tr>
 </table>
+<canvas id="chart" width="500" height="500"></canvas>
 </body>
 </html>
