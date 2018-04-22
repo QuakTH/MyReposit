@@ -1,6 +1,7 @@
 var datas = new Array();
-
+var size;
 $(document).ready(function () {
+    $('#reset').prop('disabled', true);
     $('.make').click(function (event) {
         makeDatas(event.target);
         var sum = 0;
@@ -18,7 +19,29 @@ $(document).ready(function () {
         variance /= datas.length;
         $('#variance>p').text(variance.toFixed(3));
 
-        makeChart();
+        // makeChart();
+    });
+
+    $('#ok').click(function () {
+        if ($('#sampleSize').val() == '') {
+            alert("Put in a Number");
+        } else {
+            size = Number($('#sampleSize').val());
+            if (size > datas.length) {
+                alert('The sample size is bigger than the data Set size');
+                $('#sampleSize').val("");
+            } else {
+                $('#ok').prop('disabled', true);
+                $('#sampleSize').prop('disabled', true);
+                $('#reset').prop('disabled', false);
+            }
+        }
+    });
+
+    $('#reset').click(function () {
+        $('#ok').prop('disabled', false);
+        $('#sampleSize').prop('disabled', false);
+        $('#reset').prop('disabled', true);
     });
 });
 
