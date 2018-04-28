@@ -1,7 +1,8 @@
 var datas = new Array();
-var size;
+var size, mean, variance;
 $(document).ready(function () {
     $('#reset').prop('disabled', true);
+    $('#result').prop('disabled', true);
     $('.make').click(function (event) {
         makeDatas(event.target);
         var sum = 0;
@@ -9,17 +10,16 @@ $(document).ready(function () {
         for (i in datas) {
             sum += datas[i];
         }
-        var mean = sum / datas.length;
+        mean = sum / datas.length;
         $('#mean>p').text(mean.toFixed(3));
 
-        var variance = 0;
+        variance = 0;
         for (i in datas) {
             variance += (datas[i] - mean) * (datas[i] - mean);
         }
         variance /= datas.length;
         $('#variance>p').text(variance.toFixed(3));
 
-        // makeChart();
     });
 
     $('#ok').click(function () {
@@ -27,13 +27,14 @@ $(document).ready(function () {
             alert("Put in a Number");
         } else {
             size = Number($('#sampleSize').val());
-            if (size > datas.length) {
-                alert('The sample size is bigger than the data Set size');
+            if (size > datas.length || size <= 1) {
+                alert('The sample size is bigger than the data Set size or less than one');
                 $('#sampleSize').val("");
             } else {
                 $('#ok').prop('disabled', true);
                 $('#sampleSize').prop('disabled', true);
                 $('#reset').prop('disabled', false);
+                $('#result').prop('disabled', false);
             }
         }
     });
@@ -42,8 +43,15 @@ $(document).ready(function () {
         $('#ok').prop('disabled', false);
         $('#sampleSize').prop('disabled', false);
         $('#reset').prop('disabled', true);
+        $('#result').prop('disabled', true);
+    });
+
+    $('#result').click(function () {
+        makeChartN();
+        makeChartN_1();
     });
 });
+
 
 function makeDatas(target) {
     var name = target.classList[1];
