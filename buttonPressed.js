@@ -1,6 +1,12 @@
 var datas = new Array();
 var size, mean, variance;
+var data1 = [];
+var data2 = [];
+var scatterChart = null;
+var scatterChart2 = null;
+var first = true;
 $(document).ready(function () {
+    $('.canvas-box').css('display', 'none');
     $('#reset').prop('disabled', true);
     $('#result').prop('disabled', true);
     $('.make').click(function (event) {
@@ -40,15 +46,39 @@ $(document).ready(function () {
     });
 
     $('#reset').click(function () {
+        $('.canvas-box').css('display', 'none');
         $('#ok').prop('disabled', false);
         $('#sampleSize').prop('disabled', false);
         $('#reset').prop('disabled', true);
         $('#result').prop('disabled', true);
+        $('.make').each(function (index, item) {
+            $(item).prop('disabled', false);
+        });
     });
 
     $('#result').click(function () {
-        makeChartN();
-        makeChartN_1();
+        if (first) {
+            data1 = [];
+            data2 = [];
+            makeRandom(size);
+            makeChartN();
+            makeChartN_1();
+            scatterChart.data.datasets[0].data = data1;
+            scatterChart2.data.datasets[0].data = data2;
+            first = false;
+        } else {
+            data1 = [];
+            data2 = [];
+            makeRandom(size);
+            scatterChart.data.datasets[0].data = data1;
+            scatterChart2.data.datasets[0].data = data2;
+            scatterChart.update();
+            scatterChart2.update();
+        }
+        $('.make').each(function (index, item) {
+            $(item).prop('disabled', true);
+        });
+        $('.canvas-box').css('display', 'block');
     });
 });
 
@@ -58,22 +88,22 @@ function makeDatas(target) {
     switch (name) {
         case "five":
             for (let i = 0; i < 5; i++) {
-                datas.push(Math.random() * 500 + 1);
+                datas.push(Math.floor(Math.random() * 20 + 1));
             }
             break;
         case "ten":
             for (let i = 0; i < 10; i++) {
-                datas.push(Math.random() * 500 + 1);
+                datas.push(Math.floor(Math.random() * 20 + 1));
             }
             break;
         case "fifteen":
             for (let i = 0; i < 15; i++) {
-                datas.push(Math.random() * 500 + 1);
+                datas.push(Math.floor(Math.random() * 20 + 1));
             }
             break;
         case "random":
             for (let i = 0; i < 100; i++) {
-                datas.push(Math.random() * 500 + 1);
+                datas.push(Math.floor(Math.random() * 20 + 1));
             }
             break;
         default:
